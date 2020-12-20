@@ -1,6 +1,16 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+import skimage.color
+import skimage.io
+import skimage.transform
+import random
+import colorsys
+
+
+# from pycocotools.cocoeval import COCOeval
+from pycocotools import mask as maskUtils
+
 
 def decode_seg_map_sequence(label_masks, dataset='pascal'):
     rgb_masks = []
@@ -27,6 +37,9 @@ def decode_segmap(label_mask, dataset, plot=False):
     elif dataset == 'cityscapes':
         n_classes = 19
         label_colours = get_cityscapes_labels()
+    elif dataset =='taco':
+        n_classes = 60
+        label_colours = get_taco_labels()
     else:
         raise NotImplementedError
 
@@ -99,3 +112,26 @@ def get_pascal_labels():
                        [64, 0, 128], [192, 0, 128], [64, 128, 128], [192, 128, 128],
                        [0, 64, 0], [128, 64, 0], [0, 192, 0], [128, 192, 0],
                        [0, 64, 128]])
+
+def get_taco_labels(n_classes=60):
+    """Load the mapping that associates pascal classes with label colors
+    Returns:
+        np.ndarray with dimensions (21, 3)
+    """
+    return random_colors(N=n_classes-1)
+
+def random_colors(N, bright=False):
+    """
+    Generate random colors.
+    To get visually distinct colors, generate them in HSV space then
+    convert to RGB.
+    """
+    brightness = 1.0 if bright else 0.7
+    hsv = [(i / N, 1, brightness) for i in range(N)]
+    colors = np.array(list(map(lambda c: colorsys.hsv_to_rgb(*c), hsv)))
+    random.shuffle(colors)
+    return np.array(np.concatenate([np.array([[0,0,0]]),colors*255]),dtype=np.uint8)
+
+# if __name__ == "__main__":
+
+#     print(get_taco_labels())
