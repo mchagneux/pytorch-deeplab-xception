@@ -94,8 +94,8 @@ class SURFSegmentation(Dataset):
             mask = self._gen_seg_mask(cocotarget, img_metadata['height'],
                                       img_metadata['width'])
             # more than 1k pixels
-            if (mask > 0).sum() > 1000:
-                new_ids.append(img_id)
+            # if (mask > 0).sum() > 1000:
+            new_ids.append(img_id)
             tbar.set_description('Doing: {}/{}, got {} qualified images'. \
                                  format(i, len(ids), len(new_ids)))
         print('Found number of qualified images: ', len(new_ids))
