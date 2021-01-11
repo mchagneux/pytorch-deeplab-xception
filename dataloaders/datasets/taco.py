@@ -213,8 +213,8 @@ if __name__ == "__main__":
             tmp = np.array(gt[jj]).astype(np.uint8)
             segmap = decode_segmap(tmp, dataset='taco')
             img_tmp = np.transpose(img[jj], axes=[1, 2, 0])
-            img_tmp *= (0.229, 0.224, 0.225)
-            img_tmp += (0.485, 0.456, 0.406)
+            img_tmp *= (0.234, 0.220, 0.220)
+            img_tmp += (0.498, 0.470, 0.415)
             img_tmp *= 255.0
             img_tmp = img_tmp.astype(np.uint8)
             plt.figure()

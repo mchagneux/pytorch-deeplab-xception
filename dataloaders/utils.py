@@ -39,7 +39,10 @@ def decode_segmap(label_mask, dataset, plot=False):
         label_colours = get_cityscapes_labels()
     elif dataset =='taco':
         n_classes = 60
-        label_colours = get_taco_labels()
+        label_colours = get_taco_labels(n_classes)
+    elif dataset == 'surfrider':
+        n_classes = 4
+        label_colours = get_taco_labels(n_classes) # same function but with different number of classes 
     else:
         raise NotImplementedError
 
@@ -119,6 +122,7 @@ def get_taco_labels(n_classes=60):
         np.ndarray with dimensions (21, 3)
     """
     return random_colors(N=n_classes-1)
+
 
 def random_colors(N, bright=False):
     """

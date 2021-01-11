@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 python train.py --base-size 600 --crop-size 513 --backbone mobilenet --lr 0.01 --workers 4 --epochs 40 --batch-size 2 --gpu-ids 0 --checkname deeplab-mobilenet --eval-interval 1 --dataset surfrider
