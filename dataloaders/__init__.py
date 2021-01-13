@@ -47,8 +47,8 @@ def make_data_loader(args, **kwargs):
         return train_loader, val_loader, test_loader, num_class
 
     elif args.dataset == 'surfrider':
-        train_set = surfrider.SURFSegmentation(args, split='train')
-        val_set = surfrider.SURFSegmentation(args, split='val')
+        train_set = surfrider.SurfriderDetection(split='train')
+        val_set = surfrider.SurfriderDetection(split='val')
         num_class = train_set.NUM_CLASSES
         train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True, **kwargs)
         val_loader = DataLoader(val_set, batch_size=args.batch_size, shuffle=False, drop_last=True, **kwargs)
